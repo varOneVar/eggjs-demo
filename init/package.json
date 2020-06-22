@@ -1,0 +1,68 @@
+{
+  "name": "egg-study",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "egg": {
+    "declarations": true
+  },
+  "dependencies": {
+    "@alicloud/sms-sdk": "^1.1.6",
+    "cross-env": "^7.0.2",
+    "crypto-js": "^4.0.0",
+    "dayjs": "^1.8.28",
+    "egg": "^2.15.1",
+    "egg-bizerror": "^2.2.1",
+    "egg-cors": "^2.2.3",
+    "egg-jwt": "^3.1.7",
+    "egg-mongoose": "^3.2.0",
+    "egg-passport": "^2.1.1",
+    "egg-passport-local": "^1.2.1",
+    "egg-passport-weapp": "^1.1.0",
+    "egg-redis": "^2.4.0",
+    "egg-scripts": "^2.13.0",
+    "egg-socket.io": "^4.1.6",
+    "egg-validate": "^2.0.2",
+    "egg-view-nunjucks": "^2.2.0",
+    "glob": "^7.1.6",
+    "mime": "^2.4.6",
+    "mkdirp": "^1.0.4",
+    "promisify-node": "^0.5.0",
+    "pump": "^3.0.0",
+    "stream-wormhole": "^1.1.0"
+  },
+  "devDependencies": {
+    "autod": "^3.0.1",
+    "autod-egg": "^1.1.0",
+    "egg-bin": "^4.11.0",
+    "egg-ci": "^1.11.0",
+    "egg-mock": "^3.21.0",
+    "egg-view-nunjucks": "^2.2.0",
+    "eslint": "^5.13.0",
+    "eslint-config-egg": "^7.1.0"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "scripts": {
+    "start": "egg-scripts start --daemon  --sticky --title=egg-server-init",
+    "stop": "egg-scripts stop --title=egg-server-init",
+    "dev": "egg-bin dev  --sticky",
+    "debug": "egg-bin debug",
+    "test": "npm run lint -- --fix && npm run test-local",
+    "test-local": "egg-bin test",
+    "cov": "egg-bin cov",
+    "lint": "eslint .",
+    "ci": "npm run lint && npm run cov",
+    "autod": "autod"
+  },
+  "ci": {
+    "version": "10"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "",
+  "license": "MIT"
+}
