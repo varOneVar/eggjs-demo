@@ -45,7 +45,7 @@
     "node": ">=10.0.0"
   },
   "scripts": {
-    "start": "egg-scripts start --nohup --port=3000 --env=local  --sticky --title=egg-server-init",
+    "start": "egg-scripts start --nohup --port=7001 --env=local  --sticky --title=egg-server-init",
     "stop": "egg-scripts stop --title=egg-server-init",
     "dev": "npm start",
     "debug": "egg-bin debug",
