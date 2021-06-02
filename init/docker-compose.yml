@@ -1,0 +1,75 @@
+version: '3'
+
+services: 
+    santak_redis:
+      image: redis:3             # 指定服务镜像
+      container_name: santak_redis   # 容器名称
+      restart: always            # 重启方式
+      hostname: redis
+      command: redis-server /usr/local/etc/redis/redis.conf --requirepass Aa123456 --appendonly yes
+      volumes: 
+        - /home/redis/redis.conf:/usr/local/etc/redis/redis.conf
+      ports:                     # 映射端口
+        - "6379:6379"
+      networks:                  # 加入指定网络
+        - app-networks
+
+    santak_nginx:
+        image: nginx:stable-alpine
+        container_name: santak_nginx
+        restart: always
+        ports:
+          - "80:80"
+        volumes: 
+          - /etc/localtime:/etc/localtime
+          - /home/node_nginx/conf.d:/etc/nginx/conf.d
+          - /home/node_nginx/logs:/var/log/nginx
+        depends_on:
+          - nodejs
+        networks: 
+          - app-network
+
+    santak_mongo:
+        image: mongo
+        restart: always
+        container_name: santak_mongo
+        privileged: 'true'
+        ports: 
+          - "27017:27017"
+        environment:
+          - MONGO_INITDB_ROOT_USERNAME=root
+          - MONGO_INITDB_ROOT_PASSWORD=Aa123456
+          - TZ=Asia/Shanghai
+        volumes: 
+          - /home/mongodb:/var/lib/mongodb
+        command:
+          - /bin/bash
+          - -c
+          - mongod --port 27017 --bind_ip_all --auth --dbpath "/home/mongodb/db"   --logpath "/home/mongodb/log/db.log" 
+        networks: 
+          - app-network
+
+    nodejs:
+        build:
+          context: .
+          dockerfile: dockerfile
+        image: nodejs
+        container_name: nodejs
+        restart: always
+        depends_on:                           # 启动顺序，必选先开启redis和mongo后再开启node
+          - santak_redis
+          - santak_mongo
+        links:                                # 容器连接
+          - santak_mongo:santak_mongo
+          - santak_redis:santak_redis
+        networks: 
+          - app-network
+
+
+volumes: 
+    certbot-etc:
+    certbot-var:
+
+networks:    # 通信网络
+    app-network:
+        driver: bridge

@@ -9,7 +9,7 @@ module.exports = app => {
   router.get('/', 'home.index');
 
   // socket.io
-  io.of('/').route('exchange', io.controller.nsp.index);
+  // io.of('/').route('exchange', io.controller.nsp.index);
 
   require('./routes/file')(app);
   require('./routes/user')(app);
