@@ -21,9 +21,6 @@ services:
         ports:
           - "7001:7001"
         volumes: 
-          - /var/run/docker.sock:/var/run/docker.sock   # 服务器真实文件目录:docker服务里镜像文件目录
-          - /usr/bin/docker:/usr/bin/docker             # 这是为了我们可以在容器内使用docker命令
-          - /usr/local/bin/docker-compose:/usr/local/bin/docker-compose
           - /etc/localtime:/etc/localtime
           - /home/node_nginx/conf.d:/etc/nginx/conf.d
           - /home/node_nginx/logs:/var/log/nginx
@@ -70,8 +67,9 @@ services:
 
 
 volumes: 
-    certbot-etc:
-    certbot-var:
+    - /var/run/docker.sock:/var/run/docker.sock   # 服务器真实文件目录:docker服务里镜像文件目录
+    - /usr/bin/docker:/usr/bin/docker             # 这是为了我们可以在容器内使用docker命令
+    - /usr/local/bin/docker-compose:/usr/local/bin/docker-compose
 
 networks:    # 通信网络
     app-network:
