@@ -1,6 +1,6 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #image_version=`date +%Y%m%d%H%M`;
-
+docker
 # 关闭容器
 docker-compose stop || true;
 # 删除容器
